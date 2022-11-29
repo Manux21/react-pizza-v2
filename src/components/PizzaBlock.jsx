@@ -28,7 +28,7 @@ const PizzaBlock = ({title, price, imageUrl, sizes, types}) => {
           {
             types.map((typeId, id) => {
               return (
-                <li onClick={() => setActiveType(id)}
+                <li key={typeId} onClick={() => setActiveType(id)}
                     className={activeType === id ? 'active' : ''}>{typeNames[typeId]}</li>
               )
             })
@@ -38,10 +38,11 @@ const PizzaBlock = ({title, price, imageUrl, sizes, types}) => {
 
           {sizes.map((item, id) => {
             return (
-              <li onClick={() => setActiveSize(id)} className={activeSize === id ? 'active' : ''}>{item} см.</li>
+              <li key={id} onClick={() => setActiveSize(id)}
+                  className={activeSize === id ? 'active' : ''}>{item} см.</li>
             )
           })}
-         
+
         </ul>
       </div>
       <div className="pizza-block__bottom">

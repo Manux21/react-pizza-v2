@@ -22,7 +22,8 @@ const Categories = () => {
       <ul>
         {
           categories.map((item, index) => (
-            <li onClick={() => indexHover(index)} className={activeIndex === index ? 'active' : ''}>{item}</li>
+            <li key={index} onClick={() => indexHover(index)}
+                className={activeIndex === index ? 'active' : ''}>{item}</li>
           ))
         }
       </ul>

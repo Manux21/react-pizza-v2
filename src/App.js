@@ -28,7 +28,7 @@ function App() {
           {/*  types={obj.types}*/}
           {/*/>)}*/}
 
-          {pizzas.map(obj => <PizzaBlock {...obj}/>)}
+          {pizzas.map(obj => <PizzaBlock key={obj.id} {...obj}/>)}
 
         </div>
       </div>
