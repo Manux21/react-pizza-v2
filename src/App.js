@@ -2,51 +2,65 @@ import React from 'react'
 import './App.css';
 import './scss/app.scss'
 import Header from "./components/Header";
-import Categories from "./components/Categories";
-import Sort from "./components/Sort";
-import PizzaBlock from "./components/PizzaBlock/PizzaBlock";
-import Skeleton from "./components/PizzaBlock/Skeleton";
+
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Link,
+  Outlet,
+} from "react-router-dom";
+import Home from "./pages/home/Home";
+import NotFound from "./pages/404/NotFound";
+import Cart from "./pages/cart/Cart";
 
 
 function App() {
 
-  const [items, setItems] = React.useState([])
-  const [loading, isLoading] = React.useState(true)
-
-  React.useEffect(() => {
-    fetch('https://6388a43aa4bb27a7f78d6703.mockapi.io/items').then(res => {
-      return res.json()
-    }).then(json => {
-      setItems(json)
-      setTimeout(() => {
-        isLoading(false)
-      }, 1000)
-    })
-  }, [])
-
-
-  return (<div className="wrapper">
-    <Header/>
-    <div className="content">
-      <div className="container">
-        <div className="content__top">
-          <Categories/>
-          <Sort/>
-        </div>
-        <h2 className="content__title">Все пиццы</h2>
-        <div className="content__items">
-
-          {/*{loading ? items.map((_, index) => <Skeleton key={index}/>) : items.map(obj => <PizzaBlock*/}
-          {/*  key={obj.id} {...obj}/>)}*/}
-
-
-          {loading ? [...new Array(8)].map((_, index) => <Skeleton key={index}/>) : items.map(obj => <PizzaBlock
-            key={obj.id} {...obj}/>)}
-
+  const Layout = () => {
+    return (
+      <div className="wrapper">
+        <Header/>
+        <div className="content">
+          <div className="container">
+            <Outlet/>
+          </div>
         </div>
       </div>
+    )
+  }
+
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Layout/>,
+      errorElement: <NotFound/>,
+
+      children: [
+        {
+          path: '/',
+          element: <Home/>
+        },
+
+        {
+          path: '/cart',
+          element: <Cart/>
+        }
+
+
+      ]
+    },
+
+    {}
+  ]);
+
+
+  return (
+    <div>
+      <RouterProvider router={router}/>
     </div>
-  </div>);
+  );
+
 }
 
 export default App;
