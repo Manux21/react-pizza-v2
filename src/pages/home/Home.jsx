@@ -18,10 +18,11 @@ const Home = () => {
         isLoading(false)
       }, 1000)
     })
+    window.scrollTo(0, 0)
   }, [])
 
   return (
-    <>
+    <div className='container'>
       <div className="content__top">
         <Categories/>
         <Sort/>
@@ -37,7 +38,7 @@ const Home = () => {
           key={obj.id} {...obj}/>)}
 
       </div>
-    </>
+    </div>
   );
 };
 
