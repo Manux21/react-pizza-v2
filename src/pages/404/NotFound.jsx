@@ -3,7 +3,7 @@ import NotFoundBlock from "../../components/NotFoundBlock/NotFoundBlock";
 
 const NotFound = () => {
   return (
-    <div>
+    <div style={{height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
       <NotFoundBlock/>
     </div>
   );
