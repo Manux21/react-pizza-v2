@@ -1,16 +1,16 @@
 import React from 'react';
 
-
-const Sort = () => {
+const Sort = ({value, onClickSortType}) => {
 
   const [open, setOpen] = React.useState(false)
+  const sortTypes = [
+    {name: 'популярности', sortProperty: 'rating'},
+    {name: 'цене', sortProperty: 'price'},
+    {name: 'алфавиту', sortProperty: 'title'}
+  ]
 
-  const sortTypes = ['популярности', 'цене', 'алфавиту']
-
-  const [ActiveType, setActiveType] = React.useState(0)
-
-  const activeTypeHandler = (typeIndex) => {
-    setActiveType(typeIndex)
+  const activeTypeHandler = (obj) => {
+    onClickSortType(obj)
     setOpen(!open)
   }
 
@@ -30,7 +30,7 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{sortTypes[ActiveType]}</span>
+        <span onClick={() => setOpen(!open)}>{value.name}</span>
       </div>
 
 
@@ -38,11 +38,14 @@ const Sort = () => {
         open && (
           <div className="sort__popup">
             <ul>
-              {sortTypes.map((type, typeIndex) =>
+              {sortTypes.map((objType, typeIndex) =>
                 (<li
-                  key={type}
-                  className={ActiveType === typeIndex ? 'active' : ''}
-                  onClick={() => activeTypeHandler(typeIndex)}>{type}</li>))}
+                    key={objType.name}
+                    className={value.sortProperty === objType.sortProperty ? 'active' : ''}
+                    onClick={() => activeTypeHandler(sortTypes[typeIndex])}>
+                    {objType.name}
+                  </li>
+                ))}
             </ul>
           </div>
         )

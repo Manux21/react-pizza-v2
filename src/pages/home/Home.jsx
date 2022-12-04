@@ -8,9 +8,14 @@ const Home = () => {
 
   const [items, setItems] = React.useState([])
   const [loading, isLoading] = React.useState(true)
+  const [categoryId, setCategoryId] = React.useState(0)
+  const [sortType, setSortType] = React.useState({
+    name: 'цене', sortProperty: 'price'
+  })
 
   React.useEffect(() => {
-    fetch('https://6388a43aa4bb27a7f78d6703.mockapi.io/items').then(res => {
+    isLoading(true)
+    fetch(`https://6388a43aa4bb27a7f78d6703.mockapi.io/items?${categoryId > 0 ? `category=${categoryId}` : ''}${sortType ? `&sortBy=${sortType.sortProperty}` : ''}`).then(res => {
       return res.json()
     }).then(json => {
       setItems(json)
@@ -19,13 +24,17 @@ const Home = () => {
       }, 1000)
     })
     window.scrollTo(0, 0)
-  }, [])
+  }, [categoryId, sortType])
+
+
+  console.log(categoryId, sortType)
+
 
   return (
     <div className='container'>
       <div className="content__top">
-        <Categories/>
-        <Sort/>
+        <Categories value={categoryId} onClickCategory={(index) => setCategoryId(index)}/>
+        <Sort value={sortType} onClickSortType={(obj) => setSortType(obj)}/>
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
