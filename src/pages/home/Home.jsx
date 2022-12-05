@@ -18,6 +18,7 @@ const Home = () => {
   const sortBy = sortType.sortProperty.replace('-', '');
   const category = categoryId > 0 ? `category=${categoryId}` : ''
 
+
   React.useEffect(() => {
     isLoading(true)
     fetch(`https://6388a43aa4bb27a7f78d6703.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`).then(res => {
@@ -27,10 +28,7 @@ const Home = () => {
       isLoading(false)
     })
     window.scrollTo(0, 0)
-  }, [categoryId, sortType])
-
-
-  console.log(categoryId, sortType)
+  }, [categoryId, sortType,])
 
 
   return (

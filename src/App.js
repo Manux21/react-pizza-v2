@@ -17,10 +17,12 @@ import Cart from "./pages/cart/Cart";
 
 function App() {
 
+  const [searchValue, setSearchValue] = React.useState('')
+
   const Layout = () => {
     return (
       <div className="wrapper">
-        <Header/>
+        <Header searchValue={searchValue} setSearchValue={setSearchValue}/>
         <div className="content">
           <Outlet/>
         </div>
