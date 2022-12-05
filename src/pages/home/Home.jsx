@@ -13,15 +13,18 @@ const Home = () => {
     name: 'цене', sortProperty: 'price'
   })
 
+
+  const order = sortType.sortProperty.includes('-') ? 'desc' : 'asc'
+  const sortBy = sortType.sortProperty.replace('-', '');
+  const category = categoryId > 0 ? `category=${categoryId}` : ''
+
   React.useEffect(() => {
     isLoading(true)
-    fetch(`https://6388a43aa4bb27a7f78d6703.mockapi.io/items?${categoryId > 0 ? `category=${categoryId}` : ''}${sortType ? `&sortBy=${sortType.sortProperty}` : ''}`).then(res => {
+    fetch(`https://6388a43aa4bb27a7f78d6703.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`).then(res => {
       return res.json()
     }).then(json => {
       setItems(json)
-      setTimeout(() => {
-        isLoading(false)
-      }, 1000)
+      isLoading(false)
     })
     window.scrollTo(0, 0)
   }, [categoryId, sortType])
