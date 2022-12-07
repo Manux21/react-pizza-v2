@@ -4,7 +4,7 @@ import Sort from "../../components/Sort";
 import Skeleton from "../../components/PizzaBlock/Skeleton";
 import PizzaBlock from "../../components/PizzaBlock/PizzaBlock";
 
-const Home = () => {
+const Home = ({searchValue}) => {
 
   const [items, setItems] = React.useState([])
   const [loading, isLoading] = React.useState(true)
@@ -13,22 +13,24 @@ const Home = () => {
     name: 'цене', sortProperty: 'price'
   })
 
-
   const order = sortType.sortProperty.includes('-') ? 'desc' : 'asc'
   const sortBy = sortType.sortProperty.replace('-', '');
   const category = categoryId > 0 ? `category=${categoryId}` : ''
+  const search = searchValue ? `&search=${searchValue}` : ''
+
+  console.log(searchValue)
 
 
   React.useEffect(() => {
     isLoading(true)
-    fetch(`https://6388a43aa4bb27a7f78d6703.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`).then(res => {
+    fetch(`https://6388a43aa4bb27a7f78d6703.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}${search}`).then(res => {
       return res.json()
     }).then(json => {
       setItems(json)
       isLoading(false)
     })
     window.scrollTo(0, 0)
-  }, [categoryId, sortType,])
+  }, [categoryId, sortType, searchValue])
 
 
   return (

@@ -8,7 +8,7 @@ import {
   RouterProvider,
   Route,
   Link,
-  Outlet,
+  Routes,
 } from "react-router-dom";
 import Home from "./pages/home/Home";
 import NotFound from "./pages/404/NotFound";
@@ -17,48 +17,31 @@ import Cart from "./pages/cart/Cart";
 
 function App() {
 
-  const [searchValue, setSearchValue] = React.useState('')
-
-  const Layout = () => {
-    return (
-      <div className="wrapper">
-        <Header searchValue={searchValue} setSearchValue={setSearchValue}/>
-        <div className="content">
-          <Outlet/>
-        </div>
-      </div>
-    )
-  }
-
-  const router = createBrowserRouter([
-    {
-      path: '/',
-      element: <Layout/>,
-      errorElement: <NotFound/>,
-
-      children: [
-        {
-          path: '/',
-          element: <Home/>
-        },
-
-        {
-          path: '/cart',
-          element: <Cart/>
-        }
-
-
-      ]
-    },
-
-    {}
-  ]);
+  const [searchValue, setSearchValue] = React.useState('dada')
 
 
   return (
-    <RouterProvider router={router}/>
+    <div className="wrapper">
+      <Header searchValue={searchValue} setSearchValue={setSearchValue}/>
+      <div className="content">
+        <Routes>
+          <Route path="/" element={<Home searchValue={searchValue}/>}/>
+          <Route
+            path="/cart"
+            element={
+              <Cart/>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <NotFound/>
+            }
+          />
+        </Routes>
+      </div>
+    </div>
   );
-
 }
 
 export default App;
