@@ -17,7 +17,7 @@ import Cart from "./pages/cart/Cart";
 
 function App() {
 
-  const [searchValue, setSearchValue] = React.useState('dada')
+  const [searchValue, setSearchValue] = React.useState('')
 
 
   return (
