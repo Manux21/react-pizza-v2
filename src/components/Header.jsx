@@ -3,6 +3,7 @@ import logoSvg from '../assets/img/pizza-logo.svg'
 import {Link} from "react-router-dom";
 import Search from "./Search/Search";
 
+
 const Header = ({searchValue, setSearchValue}) => {
   return (
     <div className="header">
