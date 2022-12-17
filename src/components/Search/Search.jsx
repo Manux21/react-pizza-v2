@@ -1,29 +1,56 @@
 import React from 'react';
 import styles from './Search.module.scss'
 import {SearchContext} from "../../App";
+import debounce from 'lodash.debounce';
 
 const Search = () => {
 
-  const {searchValue, setSearchValue} = React.useContext(SearchContext)
+  const updateSearchValue = React.useCallback(debounce((str) => setSearchValue(str), 200), [])
+  const [value, setValue] = React.useState('');
+
+
+  const {setSearchValue} = React.useContext(SearchContext)
+  const inputRef = React.useRef(55) //кидаем ссылку на инпут
+
+  console.log('useRef', inputRef)
+
+  const onClickClear = () => {
+    setSearchValue('')
+    setValue('')
+    // document.querySelector('input').focus()
+    inputRef.current.focus()
+  }
+
+  const onChangeSearchValue = (event) => {
+    setSearchValue(event.target.value)
+  }
+
+  const onChangeInput = event => {
+    setValue(event.target.value);
+    updateSearchValue(event.target.value)
+  }
+
 
   return (
     <div className={styles.root}>
 
-      <svg className={styles.icon} fill="none" height="24" stroke="currentColor" stroke-linecap="round"
-           stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+      <svg className={styles.icon} fill="none" height="24" stroke="currentColor" strokeLinecap="round"
+           strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
         <circle cx="11" cy="11" r="8"/>
         <line x1="21" x2="16.65" y1="21" y2="16.65"/>
       </svg>
 
-      <input value={searchValue}
-             onChange={event => setSearchValue(event.target.value)}
-             className={styles.input}
-             placeholder={'Поиск...'}
+      <input
+        ref={inputRef}
+        value={value}
+        onChange={onChangeInput}
+        className={styles.input}
+        placeholder={'Поиск...'}
       />
 
 
-      {searchValue && (
-        <svg onClick={() => setSearchValue('')} className={styles.clearIcon} height="14px" version="1.1"
+      {value && (
+        <svg onClick={onClickClear} className={styles.clearIcon} height="14px" version="1.1"
              viewBox="0 0 14 14" width="14px"><title/>
           <desc/>
           <defs/>

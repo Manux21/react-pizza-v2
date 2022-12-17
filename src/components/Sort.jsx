@@ -4,6 +4,7 @@ import {setSortType} from '../redux/slices/filterSlice'
 
 const Sort = () => {
 
+
   const sort = useSelector(state => state.filter.sort)
   const dispatch = useDispatch()
 
@@ -22,6 +23,7 @@ const Sort = () => {
     dispatch(setSortType(obj))
     setOpen(!open)
   }
+
 
   return (
     <div className="sort">
