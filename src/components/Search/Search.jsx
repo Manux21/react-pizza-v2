@@ -21,9 +21,9 @@ const Search = () => {
     inputRef.current.focus()
   }
 
-  const onChangeSearchValue = (event) => {
-    setSearchValue(event.target.value)
-  }
+  // const onChangeSearchValue = (event) => {
+  //   setSearchValue(event.target.value)
+  // }
 
   const onChangeInput = event => {
     setValue(event.target.value);
@@ -47,7 +47,6 @@ const Search = () => {
         className={styles.input}
         placeholder={'Поиск...'}
       />
-
 
       {value && (
         <svg onClick={onClickClear} className={styles.clearIcon} height="14px" version="1.1"
